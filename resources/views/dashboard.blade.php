@@ -9,11 +9,10 @@
 </head>
 
 <body class="bg-gray-100">
-    <h2>Dashboard</h2>
-    <div class="max-w-lg p-5 mx-auto bg-white">
 
+    <div class="max-w-lg p-5 mx-auto bg-white">
         <x-todo-form></x-todo-form>
-        @foreach ($todos->data as $value)
+        @foreach ($todos as $value)
             <div
                 class="max-w-lg p-2 mx-auto mt-3 border border-gray-700 rounded shadow {{ $value->status == 1 ? 'bg-green-200  text-gray-300' : '' }}">
 
