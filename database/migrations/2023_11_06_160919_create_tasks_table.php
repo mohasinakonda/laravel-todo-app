@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('long_description')->nullable();
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->default(false)->nullable();
             $table->timestamps();
         });
     }

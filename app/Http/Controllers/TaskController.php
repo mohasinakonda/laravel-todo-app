@@ -39,13 +39,21 @@ class TaskController extends Controller
             "long_description" => "required"
         ]);
         $task = Task::findOrFail($id);
+        if ($request['status'] === 'on') {
 
+            $task->status = 1;
+        } else {
+            $task->status = 0;
+
+        }
         $task->name = $data['name'];
         $task->description = $data['description'];
         $task->long_description = $data['long_description'];
         $task->save();
-
-        return redirect()->route('task.show', ['id' => $task->id]);
+        return response([
+            'status' => 'success'
+        ]);
+        // return redirect()->route('task.show', ['id' => $task->id]);
     }
 
     public function destroy($id)

@@ -47,7 +47,7 @@
     <script>
         function updateTodo(value) {
             const status = value.status == 1 ? 0 : 1;
-            fetch(`/todo/${value.id}`, {
+            fetch(`/task/${value.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

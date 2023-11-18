@@ -44,7 +44,8 @@
 
             </div>
             <div class="mb-4">
-                <input type="checkbox" name="status" id="status" {{ $todo->status == 1 ? 'checked' : '' }}>
+                <input value={{ $todo->status }} type="checkbox" name="status" id="status"
+                    {{ $todo->status == 1 ? 'checked' : '' }}>
                 <label for="status" class="">Status</label>
             </div>
             <div>
