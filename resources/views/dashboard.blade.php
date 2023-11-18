@@ -23,11 +23,18 @@
                             onchange="updateTodo({{ json_encode($value) }})" id="">
                         <h2 class='text-lg font-medium '>{{ $value->name }}</h2>
                     </div>
-                    <div>
+                    <div class="flex gap-2">
                         @if ($value->status == 0)
-                            <button><img src="assets/edit.svg" alt=""></button>
+                            <a href="{{ route('task.edit', ['id' => $value->id]) }}"><img src="assets/edit.svg"
+                                    alt=""></a>
                         @endif
-                        <button><img src="assets/trush.svg" alt=""></button>
+                        <form action="{{ route('task.destroy', ['id' => $value->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button><img src="assets/trush.svg" alt=""></button>
+                        </form>
+                        {{-- <a href="{{ route('task.destroy', ['id' => $value->id]) }}"><img src="assets/trush.svg"
+                                alt=""></a> --}}
                     </div>
                 </div>
                 <div class="p-2 mt-2 bg-gray-100 shadow">

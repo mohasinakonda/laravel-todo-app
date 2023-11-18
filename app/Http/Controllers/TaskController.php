@@ -47,4 +47,11 @@ class TaskController extends Controller
 
         return redirect()->route('task.show', ['id' => $task->id]);
     }
+
+    public function destroy($id)
+    {
+
+        $task = Task::where('id', $id)->delete();
+        return redirect()->route('dashboard');
+    }
 }

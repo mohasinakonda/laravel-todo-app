@@ -22,7 +22,7 @@ Route::post('/create-todo', [TaskController::class, 'store']);
 Route::get('/dashboard', function () {
     $todos = Task::latest()->orderBy('created_at', 'desc')->get();
     return view('dashboard', ['todos' => $todos]);
-});
+})->name('dashboard');
 
 Route::get('tasks', function () {
     return view('practice', [
@@ -38,6 +38,7 @@ Route::get('task/{id}/edit', function ($id) {
 })->name('task.edit');
 
 Route::put('task/{id}', [TaskController::class, 'update'])->name('task.update');
+Route::delete('task/{id}', [TaskController::class, 'destroy'])->name('task.destroy');
 Route::get('task/{id}', function ($id) {
     $task = Task::findOrFail($id);
     return view('show', [
