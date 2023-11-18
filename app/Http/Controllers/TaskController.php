@@ -30,15 +30,21 @@ class TaskController extends Controller
         return redirect()->route('task.show', ['id' => $task->id]);
     }
 
-    public function update(Task $task, Request $request)
+    public function update($id, Request $request)
     {
-        $task->status = $request->status;
-        $task->name = $request->name;
-        $task->description = $request->description;
+
+        $data = $request->validate([
+            "name" => 'required',
+            "description" => "required",
+            "long_description" => "required"
+        ]);
+        $task = Task::findOrFail($id);
+
+        $task->name = $data['name'];
+        $task->description = $data['description'];
+        $task->long_description = $data['long_description'];
         $task->save();
 
-        return response()->json([
-            'message' => 'success',
-        ]);
+        return redirect()->route('task.show', ['id' => $task->id]);
     }
 }
