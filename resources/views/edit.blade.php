@@ -13,9 +13,9 @@
                     class="border-2 w-full p-4 rounded-lg @error('name') border-red-500 @enderror"
                     placeholder="Todo Name">
                 @error('name')
-                    <div class="mt-2 text-sm text-red-500">
+                    <small class="mt-2 text-sm text-red-500">
                         {{ $message }}
-                    </div>
+                    </small>
                 @enderror
 
             </div>
@@ -25,9 +25,9 @@
                     class="border-2 w-full p-4 rounded-lg @error('description') border-red-500 @enderror"
                     placeholder="Todo Description">{{ $todo->description }}</textarea>
                 @error('description')
-                    <div class="mt-2 text-sm text-red-500">
+                    <small class="mt-2 text-sm text-red-500">
                         {{ $message }}
-                    </div>
+                    </small>
                 @enderror
 
             </div>
@@ -37,9 +37,9 @@
                     class="border-2 w-full p-4 rounded-lg @error('description') border-red-500 @enderror"
                     placeholder="Long Todo Description">{{ $todo->long_description }}</textarea>
                 @error('description')
-                    <div class="mt-2 text-sm text-red-500">
+                    <small class="mt-2 text-sm text-red-500">
                         {{ $message }}
-                    </div>
+                    </small>
                 @enderror
 
             </div>
