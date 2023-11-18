@@ -32,21 +32,20 @@ Route::get('tasks', function () {
     ]);
 })->name('tasks.index');
 
-Route::get('task/{id}/edit', function ($id) {
-    $todo = Task::findOrFail($id);
+Route::get('task/{task}/edit', function (Task $task) {
     return view('edit', [
-        'todo' => $todo
+        'todo' => $task
     ]);
 })->name('task.edit');
-
-Route::put('task/{id}', [TaskController::class, 'update'])->name('task.update');
-Route::delete('task/{id}', [TaskController::class, 'destroy'])->name('task.destroy');
-Route::get('task/{id}', function ($id) {
-    $task = Task::findOrFail($id);
+Route::get('task/{task}', function (Task $task) {
     return view('show', [
         'task' => $task
     ]);
 })->name('task.show');
+
+Route::put('task/{id}', [TaskController::class, 'update'])->name('task.update');
+Route::delete('task/{id}', [TaskController::class, 'destroy'])->name('task.destroy');
+
 
 
 

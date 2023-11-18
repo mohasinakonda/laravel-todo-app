@@ -21,11 +21,13 @@
 
                         <input type="checkbox" name="status" {{ $value->status == 1 ? 'checked' : '' }}
                             onchange="updateTodo({{ json_encode($value) }})" id="">
-                        <h2 class='text-lg font-medium '>{{ $value->name }}</h2>
+                        <h2 class='text-lg font-medium '><a href="{{ route('task.show', ['task' => $value->id]) }}">
+                                {{ $value->name }}</a>
+                        </h2>
                     </div>
                     <div class="flex gap-2">
                         @if ($value->status == 0)
-                            <a href="{{ route('task.edit', ['id' => $value->id]) }}"><img src="assets/edit.svg"
+                            <a href="{{ route('task.edit', ['task' => $value->id]) }}"><img src="assets/edit.svg"
                                     alt=""></a>
                         @endif
                         <form action="{{ route('task.destroy', ['id' => $value->id]) }}" method="POST">
