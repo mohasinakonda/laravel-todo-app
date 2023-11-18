@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/', function () {
+    return redirect('dashboard');
+});
 Route::post('/create-todo', [TaskController::class, 'store']);
 Route::get('/dashboard', function () {
     $todos = Task::latest()->orderBy('created_at', 'desc')->get();
