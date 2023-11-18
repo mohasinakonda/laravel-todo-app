@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/create-todo', [TaskController::class, 'store']);
-Route::put('/todo/{id}', [TaskController2::class, 'update']);
 Route::get('/dashboard', function () {
     $todos = Task::latest()->orderBy('created_at', 'desc')->get();
     return view('dashboard', ['todos' => $todos]);
@@ -30,15 +29,23 @@ Route::get('tasks', function () {
         'tasks' => Task::latest()->orderBy('status', 'desc')->get()
     ]);
 })->name('tasks.index');
+
+Route::get('task/{id}/edit', function ($id) {
+    $todo = Task::findOrFail($id);
+    return view('edit', [
+        'todo' => $todo
+    ]);
+})->name('task.edit');
+
+Route::put('task/{id}', [TaskController::class, 'update'])->name('task.update');
 Route::get('task/{id}', function ($id) {
-    $task = \App\Models\Task::findOrFail($id)->first();
-    // if (!$task) {
-    //     return abort(\Illuminate\Http\Response::HTTP_NOT_FOUND);
-    // }
+    $task = Task::findOrFail($id);
     return view('show', [
         'task' => $task
     ]);
 })->name('task.show');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
