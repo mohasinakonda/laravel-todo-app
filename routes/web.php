@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskController2;
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,15 +17,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+Route::post('/create-todo', [TaskController::class, 'store']);
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    $todos = Task::latest()->orderBy('created_at', 'desc')->get();
+    return view('dashboard', ['todos' => $todos]);
+})->name('dashboard');
 
-Route::view('/greeting', 'greeting');
+Route::get('tasks', function () {
+    return view('practice', [
+        'tasks' => Task::latest()->orderBy('status', 'desc')->get()
+    ]);
+})->name('tasks.index');
+
+Route::get('task/{id}/edit', function ($id) {
+    $todo = Task::findOrFail($id);
+    return view('edit', [
+        'todo' => $todo
+    ]);
+})->name('task.edit');
+
+Route::put('task/{id}', [TaskController::class, 'update'])->name('task.update');
+Route::delete('task/{id}', [TaskController::class, 'destroy'])->name('task.destroy');
+Route::get('task/{id}', function ($id) {
+    $task = Task::findOrFail($id);
+    return view('show', [
+        'task' => $task
+    ]);
+})->name('task.show');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
